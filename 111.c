@@ -7,11 +7,11 @@
 /* record the shortest path */
 int shortestLen[max+1];
 
-int inputGraph[max+1][3];//
-int top=-1;
+int inputGraph[max+1][3];
 
 struct Node{
     int vertex;
+    int dur;
     struct tag_Node* link;
 };
 
@@ -20,16 +20,9 @@ struct Node* graph[max+1];
 
 void push(struct Node* node,int location){
         graph[location]=node;
-    
 }
 
-// int pop(struct Node* node,int location){
-//     if(top>0){
-//         graph[location]=node;
-//         free(node);
-//         return top;
-//     }
-// }
+
 
 int main(void){
     int vertex=0;
@@ -48,19 +41,30 @@ int main(void){
     getchar();
     scanf("%d",&start_index);
 
+    struct Node* root=(struct Node*)malloc(sizeof(struct Node));
+    root->link=NULL;
+    root->vertex=start_index;
+    root->dur=0;
+    push(root,start_index);
+
     for(int i=1;i<vertex;i++){
-        struct Node* root=(struct Node*)malloc(sizeof(struct Node));
         struct Node* tmp=(struct Node*)malloc(sizeof(struct Node));
-        if(inputGraph[i][0]==start_index){
-            root->link=NULL;
-            root->vertex=inputGraph[i][0];
-            push(root));
-        }
-        else if(inputGraph[i][1]==start_index){
-            tmp->link=NULL;
+        if(inputGraph[i][1]==start_index){
             tmp->vertex=inputGraph[i][0];
-            push(tmp);
+            tmp->link=graph[inputGraph[i][1]];
+            tmp->dur=inputGraph[i][2];
+            push(tmp,inputGraph[i][0]);
         }
+        else {
+            tmp->vertex=inputGraph[i][1];
+            tmp->link=graph[inputGraph[i][0]];
+            tmp->dur=inputGraph[i][2];
+            push(tmp,inputGraph[i][1]);
+        }
+    }
+
+    for(int i=1;i<=vertex;i++){
+        if()
     }
 
 
